@@ -1,0 +1,57 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "night-agent-init": {
+      "mode": "primary",
+      "description": "Reads repository documentation and creates the project-specific night-agent policy file.",
+      "permission": {
+        "question": "deny",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "external_directory": "deny",
+        "edit": {
+          "*": "deny",
+          ".night-agent/NIGHT_AGENT.md": "allow"
+        },
+        "bash": {
+          "*": "deny",
+          "pwd": "allow",
+          "git status*": "allow",
+          "git log*": "allow",
+          "git show*": "allow",
+          "git diff*": "allow",
+          "git branch*": "allow",
+          "git rev-parse*": "allow",
+          "git ls-files*": "allow"
+        }
+      }
+    },
+    "night-agent": {
+      "mode": "primary",
+      "description": "Performs bounded unattended repository maintenance from an explicit task brief.",
+      "permission": {
+        "question": "deny",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "external_directory": "deny",
+        "bash": {
+          "*": "allow",
+          "git push*": "deny",
+          "git tag*": "deny",
+          "git reset*": "deny",
+          "git clean*": "deny",
+          "git checkout*": "deny",
+          "git switch*": "deny",
+          "git merge*": "deny",
+          "git rebase*": "deny",
+          "gh *": "deny",
+          "npm publish*": "deny",
+          "docker push*": "deny",
+          "*deploy*": "deny",
+          "rm -rf*": "deny",
+          "sudo *": "deny"
+        }
+      }
+    }
+  }
+}

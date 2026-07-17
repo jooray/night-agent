@@ -1,0 +1,35 @@
+{
+  "$comment": "Copy to <your-repo>/night-agent.config.json and edit briefs to fit the project. Missions rotate by neglect; models rotate per harness; each harness runs in its own reset-anchored spend window. Machine-wide defaults may also live in ~/.config/night-agent/config.json (repo file wins; missions come only from the repo file).",
+  "defaults": { "harness": "opencode", "maxIterations": 100, "maxHours": 12 },
+  "harnesses": {
+    "opencode": {
+      "models": ["venice/qwen3-235b", "venice/deepseek-r1-671b", "venice/llama-3.3-70b"],
+      "minDiem": 0.01,
+      "window": { "type": "daily", "resetAnchor": "00:00", "utc": true, "leadHours": 8, "minRunHours": 1 }
+    },
+    "claude": {
+      "models": ["opus", "sonnet"],
+      "gateCmd": null,
+      "window": { "type": "weekly", "resetAnchor": "wed 09:00", "leadHours": 4, "minRunHours": 1 }
+    }
+  },
+  "missions": [
+    { "name": "audit", "builtin": "audit", "cadenceDays": 3 },
+    {
+      "name": "deps",
+      "cadenceDays": 7,
+      "brief": "Review outdated or vulnerable dependencies. Apply patch and minor updates that satisfy the safe-change policy, with release notes reviewed, lockfiles updated, and focused tests run. Record major upgrades as decision items instead of applying them."
+    },
+    {
+      "name": "compat",
+      "cadenceDays": 7,
+      "model": "venice/deepseek-r1-671b",
+      "brief": "Keep this project compatible with the current state of the protocols and critical libraries it depends on. Read-only network access is authorized for this mission. First infer, from manifests, lockfiles, imports, and NIGHT_AGENT.md, which external protocols the project implements and which dependencies are load-bearing (cryptography, consensus, networking, auth, serialization, data formats). For each, look for upstream releases, security advisories, deprecations, and protocol changes since the last check. Classify every finding: a change mandated by an authoritative source — a published security advisory (CVE, GHSA, or a vendor emergency notice) applying to a version this project uses, or a required protocol transition that would otherwise break interoperability — is REQUIRED work; apply it and the code changes needed to restore the build and tests even when it forces a major or code-incompatible dependency upgrade, and record the advisory reference and your migration reasoning. A merely newer version, an optional feature, or a backward-incompatible change with no authoritative mandate goes to Needs Your Decision with evidence, impact, and a recommendation — never apply it speculatively. Never weaken security or tests to make things compile; if a mandatory upgrade cannot be completed safely and verifiably this run, leave the worktree clean and record the precise blocker. Never push."
+    },
+    {
+      "name": "upstream",
+      "cadenceDays": 7,
+      "brief": "This repository is a fork. Read-only network fetch of the configured upstream is authorized for this mission. Review upstream commits since the last merge point, summarize relevant changes as findings, and cherry-pick or merge only clean, conflict-free, behavior-compatible commits. Anything with conflicts or API changes goes to Needs Your Decision. Never push."
+    }
+  ]
+}

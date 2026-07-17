@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "defaultMode": "dontAsk",
+    "deny": [
+      "WebFetch",
+      "WebSearch"
+    ],
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Edit(.night-agent/NIGHT_AGENT.md)",
+      "Write(.night-agent/NIGHT_AGENT.md)",
+      "Bash(pwd)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git diff:*)",
+      "Bash(git branch:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git ls-files:*)"
+    ]
+  }
+}

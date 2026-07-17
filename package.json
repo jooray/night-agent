@@ -1,0 +1,18 @@
+{
+  "name": "night-agent",
+  "version": "0.4.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Run bounded, unattended OpenCode or Claude Code maintenance sessions against a repository, with rotating missions and reset-anchored scheduling.",
+  "type": "module",
+  "bin": {
+    "night-agent": "./src/night-agent.js"
+  },
+  "scripts": {
+    "start": "node src/night-agent.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
