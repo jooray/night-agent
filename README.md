@@ -2,6 +2,20 @@
 
 Night Agent runs bounded, unattended engineering sessions against a repository, using **OpenCode** (with the Venice provider configured on this machine) and/or **Claude Code** as the backend. It gives every project durable memory, works in an isolated Git worktree on a `night-agent` branch, commits coherent changes, writes a report, and never pushes.
 
+<!-- jooray-links:start -->
+### More from me
+
+**Related projects**
+
+- [tmux-wake](https://github.com/jooray/tmux-wake): wake coding agents in tmux or Herdr after an API usage limit resets
+- [hermes-firewall](https://github.com/jooray/hermes-firewall): prompt-injection gate for Hermes Agent
+- [humanizer](https://github.com/jooray/humanizer): agent skill that removes the tells from AI-written text
+
+**Full project showcase:** [Night Agent in my project showcase](https://juraj.bednar.io/showcase/#AI-03), or [all my projects](https://juraj.bednar.io/showcase/).
+
+I write about building things on [my blog](https://juraj.bednar.io/en/blog-en/). I also wrote a cypherpunk novel, [Tamers of Entropy](https://tamersofentropy.net/), and there is a [trailer](https://tamersofentropy.net/#trailer).
+<!-- jooray-links:end -->
+
 Beyond a default open-ended audit, it rotates through a preset list of recurring **missions** — dependency reviews, upstream protocol and library compatibility, fork merges, and whatever else you define — always picking the most neglected one, rotating models, and running inside per-provider spend windows so subscription or DIEM credits get used before they reset. A mission interrupted when the budget runs out is resumed next time rather than dropped. When a run ends it can fire a hook — for example, text yourself a one-paragraph TLDR of what happened and what to act on.
 
 ## Quick start
